@@ -21,17 +21,24 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        //todo 从sp读出数据更新isOpen字段
-        boolean isOpen = false;
+        //todo 读取sp !done
+        mSharedPreferences=getSharedPreferences(getApplication().getPackageName(), Context.MODE_PRIVATE);
+        final boolean isOpen = mSharedPreferences.getBoolean(KEY_IS_NEED_SORT,false);
 
         commentSwitch = findViewById(R.id.switch_comment);
+        commentSwitch.setChecked(isOpen);
+
         commentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //todo 存储开关值进sp
+                //todo 存储开关值进sp !done
+                SharedPreferences.Editor editor = mSharedPreferences.edit();
+                editor.putBoolean(KEY_IS_NEED_SORT,isChecked);
+                editor.apply();
+                commentSwitch.setChecked(isChecked);
             }
         });
-        commentSwitch.setChecked(isOpen);
+
     }
 
 }
