@@ -22,6 +22,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
     private final NoteOperator operator;
     private final List<Note> notes = new ArrayList<>();
+//    private SharedPreferences mSharedPreferences;
 
     public NoteListAdapter(NoteOperator operator) {
         this.operator = operator;
@@ -31,7 +32,8 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         notes.clear();
         if (newNotes != null) {
             notes.addAll(newNotes);
-
+//            mSharedPreferences=  getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
+//            final boolean isOpen = mSharedPreferences.getBoolean(KEY_IS_NEED_SORT,false);
             //todo 根据${com.byted.camp.todolist.operation.activity.SettingActivity} 中设置的sp控制是否将已完成的完成排到最后，默认不排序
         }
         notifyDataSetChanged();
@@ -54,4 +56,9 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     public int getItemCount() {
         return notes.size();
     }
+
+    public boolean deleteNote(Note note) {
+        return notes.remove(note);
+    }
+
 }
