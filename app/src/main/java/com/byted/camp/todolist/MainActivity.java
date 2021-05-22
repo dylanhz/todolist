@@ -33,6 +33,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_ADD = 1002;
+    private static final int REQUEST_CODE_SORT = 1003;
 
     private RecyclerView recyclerView;
     private NoteListAdapter notesAdapter;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void updateNote(Note note) {
                 MainActivity.this.updateNode(note);
             }
-        });
+        }, this);
         recyclerView.setAdapter(notesAdapter);
 
         notesAdapter.refresh(loadNotesFromDatabase());
@@ -92,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
-                startActivity(new Intent(this, SettingActivity.class));
+                startActivityForResult(new Intent(this, SettingActivity.class),
+                        REQUEST_CODE_SORT);
                 return true;
             case R.id.action_debug:
                 startActivity(new Intent(this, DebugActivity.class));
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ADD
+        if ((requestCode == REQUEST_CODE_ADD || requestCode == REQUEST_CODE_SORT)
                 && resultCode == Activity.RESULT_OK) {
             notesAdapter.refresh(loadNotesFromDatabase());
         }
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void deleteNote(Note note) {
-        // TODO 删除数据 !?
+        // TODO 删除数据 !done
         TodoDbHelper todoDbHelper = TodoDbHelper.getInstance(this);
         SQLiteDatabase db = todoDbHelper.getWritableDatabase();
 
@@ -156,9 +158,9 @@ public class MainActivity extends AppCompatActivity {
         String[] selectionArgs = {String.valueOf(note.id)};
         int deletedRows = db.delete(TodoContract.TodoEntry.TABLE_NAME, selection, selectionArgs);
 
-        notesAdapter.deleteNote(note);
-
-        notesAdapter.notifyDataSetChanged();
+        if (deletedRows > 0) {
+            notesAdapter.refresh(loadNotesFromDatabase());
+        }
     }
 
     private void updateNode(Note note) {
@@ -173,7 +175,9 @@ public class MainActivity extends AppCompatActivity {
         String[] selectionArgs = {String.valueOf(note.id)};
         int updatedRows = db.update(TodoContract.TodoEntry.TABLE_NAME, values, selection, selectionArgs);
 
-        notesAdapter.notifyDataSetChanged();
+        if (updatedRows > 0) {
+            notesAdapter.refresh(loadNotesFromDatabase());
+        }
     }
 
 }
