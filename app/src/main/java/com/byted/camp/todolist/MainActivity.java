@@ -143,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
             note.setState(State.from(state));
             String content = cursor.getString(cursor.getColumnIndexOrThrow(TodoContract.TodoEntry.COLUMN_4));
             note.setContent(content);
+            int priority = cursor.getInt(cursor.getColumnIndexOrThrow(TodoContract.TodoEntry.COLUMN_5));
+            note.setPriority(priority);
             noteList.add(note);
         }
         cursor.close();

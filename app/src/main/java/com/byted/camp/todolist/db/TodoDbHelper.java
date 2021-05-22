@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class TodoDbHelper extends SQLiteOpenHelper {
 
     // TODO 定义数据库名、版本；创建数据库 !done
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "TodoList.db";
     private static TodoDbHelper todoDbHelper=null;
 
@@ -22,7 +22,8 @@ public class TodoDbHelper extends SQLiteOpenHelper {
                     TodoContract.TodoEntry.COLUMN_1 + " INTEGER," +
                     TodoContract.TodoEntry.COLUMN_2 + " INTEGER," +
                     TodoContract.TodoEntry.COLUMN_3 + " INTEGER," +
-                    TodoContract.TodoEntry.COLUMN_4 + " TEXT)";
+                    TodoContract.TodoEntry.COLUMN_4 + " TEXT, " +
+                    TodoContract.TodoEntry.COLUMN_5 + " INTEGER)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TodoContract.TodoEntry.TABLE_NAME;

@@ -16,6 +16,12 @@
         android:padding="4dp"
         android:textColor="#1e1e1e" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/priority"/>
+
     <Button
         android:id="@+id/btn_add"
         android:layout_width="match_parent"

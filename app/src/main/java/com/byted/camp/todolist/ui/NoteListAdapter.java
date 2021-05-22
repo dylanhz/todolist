@@ -2,9 +2,7 @@ package com.byted.camp.todolist.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.view.ViewGroup;
 import com.byted.camp.todolist.NoteOperator;
 import com.byted.camp.todolist.R;
 import com.byted.camp.todolist.beans.Note;
-import com.byted.camp.todolist.beans.State;
 import com.byted.camp.todolist.operation.activity.SettingActivity;
 
 import java.util.ArrayList;
@@ -42,22 +39,18 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
     public void refresh(List<Note> newNotes) {
         notes.clear();
         if (newNotes != null) {
-            //todo 根据${com.byted.camp.todolist.operation.activity.SettingActivity} 中设置的sp控制是否将已完成的完成排到最后，默认不排序
+            //todo 根据${com.byted.camp.todolist.operation.activity.SettingActivity} 中设置的sp控制是否将已完成的完成排到最后，默认不排序 !done
             final boolean sortByState = mSharedPreferences.getBoolean(SettingActivity.getSPName(), false);
             if (sortByState) {
                 newNotes = newNotes.stream()
-                        .sorted(Comparator.comparing(Note::getState))
+                        .sorted(Comparator.comparing(Note::getState)
+                        .thenComparing(Comparator.comparing(Note::getPriority).reversed()))
                         .collect(Collectors.toList());
-//                notes.addAll(newNotes
-//                        .stream()
-//                        .filter((Note note) -> note.getState() == State.TODO)
-//                        .collect(Collectors.toList())
-//                );
-//                notes.addAll(newNotes
-//                        .stream()
-//                        .filter((Note note) -> note.getState() == State.DONE)
-//                        .collect(Collectors.toList())
-//                );
+            }
+            else{
+                newNotes = newNotes.stream()
+                        .sorted(Comparator.comparing(Note::getPriority).reversed())
+                        .collect(Collectors.toList());
             }
             notes.addAll(newNotes);
         }

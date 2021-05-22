@@ -19,6 +19,7 @@ public final class TodoContract {
         public static final String COLUMN_2 = "date";
         public static final String COLUMN_3 = "state";
         public static final String COLUMN_4 = "content";
+        public static final String COLUMN_5 = "priority";
     }
 
 }

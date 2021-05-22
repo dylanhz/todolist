@@ -55,6 +55,16 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 note.setState(isChecked ? State.DONE : State.TODO);
                 operator.updateNote(note);
+                switch (note.getPriority()){
+                    case 2:
+                        contentText.setTextColor(Color.rgb(220,20,60));
+                        break;
+                    case 1:
+                        contentText.setTextColor(Color.rgb(46,139,87));
+                        break;
+                    default:
+                        break;
+                }
             }
         });
         deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +78,16 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
             contentText.setTextColor(Color.GRAY);
             contentText.setPaintFlags(contentText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
-            contentText.setTextColor(Color.BLACK);
+            switch (note.getPriority()){
+                case 2:
+                    contentText.setTextColor(Color.rgb(220,20,60));
+                    break;
+                case 1:
+                    contentText.setTextColor(Color.rgb(46,139,87));
+                    break;
+                default:
+                    break;
+            }
             contentText.setPaintFlags(contentText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
     }
