@@ -6,6 +6,8 @@ import java.util.Date;
  * Created on 2019/1/23.
  *
  * @author xuyingyi@bytedance.com (Yingyi Xu)
+ * Last Modified on 2021/5/22.
+ * @author dylan
  */
 public class Note {
 
@@ -43,12 +45,12 @@ public class Note {
         this.content = content;
     }
 
-    public void setPriority(int prio){
-        this.priority=prio;
+    public int getPriority() {
+        return priority;
     }
 
-    public int getPriority(){
-        return priority;
+    public void setPriority(int prio) {
+        this.priority = prio;
     }
 
 }

@@ -6,6 +6,8 @@ import android.provider.BaseColumns;
  * Created on 2019/1/22.
  *
  * @author xuyingyi@bytedance.com (Yingyi Xu)
+ * Last Modified on 2021/5/22.
+ * @author dylan
  */
 public final class TodoContract {
 
@@ -13,7 +15,7 @@ public final class TodoContract {
     private TodoContract() {
     }
 
-    public static class TodoEntry implements BaseColumns{
+    public static class TodoEntry implements BaseColumns {
         public static final String TABLE_NAME = "note";
         public static final String COLUMN_1 = "id";
         public static final String COLUMN_2 = "date";

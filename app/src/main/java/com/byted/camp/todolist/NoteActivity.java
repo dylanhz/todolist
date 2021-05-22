@@ -18,8 +18,6 @@ import com.byted.camp.todolist.beans.State;
 import com.byted.camp.todolist.db.TodoContract;
 import com.byted.camp.todolist.db.TodoDbHelper;
 
-import java.util.Calendar;
-
 public class NoteActivity extends AppCompatActivity {
 
     private EditText editText;
@@ -55,23 +53,22 @@ public class NoteActivity extends AppCompatActivity {
                             "No content to add", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                int prio=0;
+                int prio = 0;
                 Object tmp = spinner.getSelectedItem();
-                if (tmp!=null)
-                {
-                    switch (tmp.toString()){
+                if (tmp != null) {
+                    switch (tmp.toString()) {
                         case "High":
                             prio = 2;
                             break;
                         case "Medium":
-                            prio =1;
+                            prio = 1;
                             break;
                         default:
-                            prio =0;
+                            prio = 0;
                             break;
                     }
                 }
-                boolean succeed = saveNote2Database(content.toString().trim(),prio);
+                boolean succeed = saveNote2Database(content.toString().trim(), prio);
                 if (succeed) {
                     Toast.makeText(NoteActivity.this,
                             "Note added", Toast.LENGTH_SHORT).show();

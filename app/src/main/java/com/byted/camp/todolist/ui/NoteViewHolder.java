@@ -21,6 +21,8 @@ import java.util.Locale;
  * Created on 2019/1/23.
  *
  * @author xuyingyi@bytedance.com (Yingyi Xu)
+ * Last Modified on 2021/5/22.
+ * @author dylan
  */
 public class NoteViewHolder extends RecyclerView.ViewHolder {
 
@@ -55,16 +57,6 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 note.setState(isChecked ? State.DONE : State.TODO);
                 operator.updateNote(note);
-                switch (note.getPriority()){
-                    case 2:
-                        contentText.setTextColor(Color.rgb(220,20,60));
-                        break;
-                    case 1:
-                        contentText.setTextColor(Color.rgb(46,139,87));
-                        break;
-                    default:
-                        break;
-                }
             }
         });
         deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -78,14 +70,15 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
             contentText.setTextColor(Color.GRAY);
             contentText.setPaintFlags(contentText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
-            switch (note.getPriority()){
+            switch (note.getPriority()) {
                 case 2:
-                    contentText.setTextColor(Color.rgb(220,20,60));
+                    contentText.setTextColor(Color.rgb(220, 20, 60));
                     break;
                 case 1:
-                    contentText.setTextColor(Color.rgb(46,139,87));
+                    contentText.setTextColor(Color.rgb(46, 139, 87));
                     break;
                 default:
+                    contentText.setTextColor(Color.BLACK);
                     break;
             }
             contentText.setPaintFlags(contentText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);

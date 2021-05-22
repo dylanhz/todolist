@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
  * Created on 2019/1/23.
  *
  * @author xuyingyi@bytedance.com (Yingyi Xu)
+ * Last Modified on 2021/5/22.
+ * @author dylan
  */
 public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
 
@@ -44,10 +46,9 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
             if (sortByState) {
                 newNotes = newNotes.stream()
                         .sorted(Comparator.comparing(Note::getState)
-                        .thenComparing(Comparator.comparing(Note::getPriority).reversed()))
+                                .thenComparing(Comparator.comparing(Note::getPriority).reversed()))
                         .collect(Collectors.toList());
-            }
-            else{
+            } else {
                 newNotes = newNotes.stream()
                         .sorted(Comparator.comparing(Note::getPriority).reversed())
                         .collect(Collectors.toList());
